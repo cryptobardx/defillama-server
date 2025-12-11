@@ -777,6 +777,7 @@ const data: Protocol[] = [
       "eip155:1:0x637deEED4e4deb1D222650bD4B64192abf002c00",
     ],
     github: ["Rari-Capital"], //check
+    deadUrl: true,
   },
   {
     id: "137",
@@ -2720,7 +2721,10 @@ const data: Protocol[] = [
     module: "enzyme/index.js",
     twitter: "enzymefinance",
     audit_links: ["https://audit.enzyme.finance/"],
-    oraclesBreakdown: [{ name: "Chainlink", type: "Primary", proof: [] }],
+    oraclesBreakdown: [
+      { name: "Chainlink", type: "Primary", proof: [] },
+      { name: "RedStone", type: "Secondary", proof: [] }
+    ],
     governanceID: ["snapshot:enzymefinance.eth"],
     github: ["enzymefinance"],
   },
@@ -7008,6 +7012,9 @@ const data: Protocol[] = [
     chains: ["Thorchain"],
     module: "thorchain/index.js",
     twitter: "THORChain",
+    dimensions: {
+      fees: "thorchain-dex",
+    },
     audit_links: ["https://www.certik.org/projects/thorchain"],
   },
   {
@@ -23920,6 +23927,9 @@ The eWIT token is a custodial, wrapped version of the Witnet coin managed by the
     twitter: "JPoolSolana",
     listedAt: 1641070522,
     openSource: false,
+    dimensions: {
+      fees: "jpool-staked-sol"
+    }
   },
   {
     id: "1174",

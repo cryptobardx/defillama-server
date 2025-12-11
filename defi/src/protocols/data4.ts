@@ -4569,11 +4569,21 @@ const data4: Protocol[] = [
           "https://app.redstone.finance/app/feeds/?page=1&sortBy=popularity&sortDesc=false&perPage=32&networks=80094",
           "https://berascan.com//address/0x83c6f7F61A55Fc7A1337AbD45733AD9c1c68076D",
         ],
+        endDate: "2025-12-04"
       },
       {
         name: "Chronicle",
-        type: "Secondary",
+        type: "Primary",
         proof: ["https://beraborrow.gitbook.io/docs/pricing-assets#single-sided-assets"],
+        startDate: "2025-12-04"
+      },
+      {
+        name: "RedStone",
+        type: "Secondary",
+        proof: [
+          "https://app.redstone.finance/app/feeds/?page=1&sortBy=popularity&sortDesc=false&perPage=32&networks=80094",
+          "https://berascan.com//address/0x83c6f7F61A55Fc7A1337AbD45733AD9c1c68076D",
+        ],
       },
     ],
     forkedFrom: [],
@@ -5447,25 +5457,21 @@ const data4: Protocol[] = [
         type: "Primary",
         proof: [
           "https://takara.gitbook.io/takara-lend/protocol-information/security#takara-security-measures",
-          "https://app.takaralend.com/market/WSEI",
-          "https://app.takaralend.com/market/spSEI",
-          "https://app.takaralend.com/market/iSEI",
+          "https://app.takaralend.com/market/enzoBTC",
           "https://app.takaralend.com/market/uBTC",
+          "https://app.takaralend.com/market/USD%E2%82%AE0",
           "https://app.takaralend.com/market/MBTC",
-          "https://app.takaralend.com/market/SBTC",
+          "https://app.takaralend.com/market/USDC",
         ],
          endDate: "2025-11-12",
       },
       {
-        name: "Pyth",
+        name: "Api3",
         type: "Fallback",
-        proof: [
-          "https://takara.gitbook.io/takara-lend/protocol-information/security#takara-security-measures",
-          "https://app.takaralend.com/market/WSEI",
-        ],
+        proof: ["https://app.takaralend.com/"],
       },
       {
-        name: "RedStone",
+        name: "Pyth",
         type: "Fallback",
         proof: [
           "https://takara.gitbook.io/takara-lend/protocol-information/security#takara-security-measures",
@@ -7999,7 +8005,7 @@ const data4: Protocol[] = [
     gecko_id: null,
     cmcId: null,
     category: "Derivatives",
-    chains: ["Ethereum"],
+    chains: ["Ethereum", "Starknet"],
     forkedFrom: [],
     oraclesBreakdown: [
       {
@@ -15353,6 +15359,9 @@ const data4: Protocol[] = [
     module: "phantom-sol/index.js",
     twitter: "phantom",
     listedAt: 1747659045,
+    dimensions: {
+      fees: "phantom-staked-sol",
+    },
   },
   {
     id: "6190",
@@ -15776,6 +15785,16 @@ const data4: Protocol[] = [
     forkedFrom: [],
     module: "hyperithm/index.js",
     twitter: "hyperithm",
+      oraclesBreakdown: [
+      {
+        name: "Chronicle",
+        type: "Primary",
+        proof: [
+          "https://arbiscan.io/address/0x52dea1e79273887ad0bdf3faf3904351ae9460e0#readContract",
+        ],
+        chains: [{ chain: "Arbitrum" }],
+      },
+    ],
     listedAt: 1747734486,
     dimensions: {
       fees: "hyperithm"
@@ -16071,14 +16090,14 @@ const data4: Protocol[] = [
     gecko_id: null,
     cmcId: null,
     category: "Risk Curators",
-    chains: ["Ethereum", "Base", "Unichain", "Corn"],
+    chains: ["Ethereum", "Base", "Unichain", "Corn", "Arbitrum", "Katana"],
     forkedFrom: [],
     oraclesBreakdown: [
       {
         name: "Chronicle",
         type: "Primary",
         proof: ["https://github.com/DefiLlama/defillama-server/pull/10124"],
-        chains: [{ chain: "Base" }],
+        chains: [{ chain: "Base" }, { chain: "Monad"}],
       },
       {
         name: "Chaos",
@@ -16396,7 +16415,7 @@ const data4: Protocol[] = [
     audit_note: null,
     gecko_id: null,
     cmcId: null,
-    category: "Bridge",
+    category: "Cross Chain Bridge",
     chains: ["Near"],
     forkedFrom: [],
     module: "near-intents/index.js",
@@ -19752,7 +19771,8 @@ const data4: Protocol[] = [
     category: "Staking Pool",
     chains: ["Ethereum"],
     forkedFromIds: [],
-    module: "ssv-network/index.js",
+    //module: "ssv-network/index.js", commented while we check on the tvl
+    module: "dummy.js",
     twitter: "ssv_network",
     dimensions: {
       fees: "ssv-network"
@@ -20084,13 +20104,14 @@ const data4: Protocol[] = [
     logo: `${baseIconsUrl}/liquidswap-hl.jpg`,
     audits: "0",
     audit_note: null,
-    gecko_id: "liquidlaunch",
+    gecko_id: null,
     cmcId: null,
     category: "DEX Aggregator",
     chains: ["Hyperliquid L1"],
     module: "dummy.js",
     twitter: "LiquidLaunchHL",
     forkedFrom: [],
+    parentProtocol: "parent#liquidlabs",
     dimensions: {
       fees: "liquidswap",
       aggregators: "liquidswap"
@@ -22556,6 +22577,9 @@ const data4: Protocol[] = [
     module: "bitlayer-ybtc_b/index.js",
     twitter: "BitlayerLabs",
     listedAt: 1753368932,
+    dimensions: {
+      fees: "bitlayer-ybtc-family"
+    }
   },
   {
     id: "6475",
@@ -23683,6 +23707,7 @@ const data4: Protocol[] = [
     module: "dummy.js",
     forkedFromIds: [],
     twitter: "BasedOneX",
+    parentProtocol: "parent#based",
     dimensions: {
       fees: "based-app",
       derivatives: "based-app"
@@ -24450,16 +24475,16 @@ const data4: Protocol[] = [
   {
     id: "6554",
     name: "HumidiFi",
-    address: null,
-    symbol: "-",
+    address: "solana:WETZjtprkDMCcUxPi9PfWnowMRZkiGGHDb9rABuRZ2U",
+    symbol: "WET",
     url: "null",
     description: "Prop AMM on Solana",
     chain: "Solana",
     logo: `${baseIconsUrl}/humidifi.jpg`,
     audits: "0",
     audit_note: null,
-    gecko_id: null,
-    cmcId: null,
+    gecko_id: "humidifi",
+    cmcId: "39049",
     category: "Dexs",
     chains: ["Solana"],
     module: "dummy.js",
@@ -31408,7 +31433,7 @@ const data4: Protocol[] = [
     audit_note: null,
     gecko_id: "infinit",
     cmcId: "37609",
-    category: "Yield",
+    category: "AI Agents",
     chains: ["Binance","Arbitrum", "Ethereum", "Base", "Optimism", "Sonic", "Hyperliquid L1", "Mantle", "Plasma", "Berachain"],
     module: "infinit/index.js",
     twitter: "Infinit_Labs",
@@ -32194,7 +32219,8 @@ const data4: Protocol[] = [
     name: "Variational",
     address: null,
     symbol: "-",
-    url: "https://variational.io/",
+    url: "https://omni.variational.io/?ref=OMNILLAMA",
+    referralUrl: "https://omni.variational.io/?ref=OMNILLAMA",
     description: "Variational is a protocol that provides infrastructure for peer-to-peer trading, clearing, and settlement of perpetuals and generalized derivatives. The Variational Protocol enables safe and efficient bilateral trading of options, futures, perpetuals, exotics, and more. Multiple apps have been built on the Variational Protocol, including Omni for perpetuals trading and Pro for institutions to trade customizable OTC derivatives.",
     chain: "Arbitrum",
     logo: `${baseIconsUrl}/variational.jpg`,

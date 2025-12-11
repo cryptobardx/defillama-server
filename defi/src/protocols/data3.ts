@@ -37,7 +37,7 @@ import type { Protocol } from "./types";
   we start tracking it on both polygon and ethereum, then `chain` should be set to `Ethereum`.
 `chains` is not used by the current code, but good to fill it out because it is used in our test to detect errors
 */
-const data3_1: Protocol[] = [
+const data3_0: Protocol[] = [
   {
     id: "2701",
     name: "FairySwap V2",
@@ -4742,6 +4742,9 @@ const data3_1: Protocol[] = [
     audit_links: ["https://docs.swellnetwork.io/swell/risks/smart-contract-audits"],
     parentProtocol: "parent#swell",
     listedAt: 1682554957,
+    dimensions: {
+      fees: "swell",
+    },
   },
   {
     id: "2902",
@@ -6713,6 +6716,7 @@ const data3_1: Protocol[] = [
     forkedFrom: [],
     audit_links: ["https://github.com/zenith-security/reports/blob/main/reports/Zenith%20Audit%20Report%20-%20Stream%20Protocol.pdf"],
     listedAt: 1684246278,
+    deadFrom: "2025-11-04",
   },
   {
     id: "2985",
@@ -7406,6 +7410,13 @@ const data3_1: Protocol[] = [
     audit_links: ["https://docs.morpho.org/security-reviews"],
     listedAt: 1684901863,
     parentProtocol: "parent#morpho",
+    deprecated: true,
+    warningBanners: [
+      {
+        message: "This product was deprecated. https://snapshot.box/#/s:morpho.eth/proposal/0x60b31cceca2beee55f8845f86b7988ee36f29ad50f5dda636164ab50b561936b",
+        level: "alert",
+      },
+    ],
   },
   {
     id: "3015",
@@ -9590,7 +9601,7 @@ const data3_1: Protocol[] = [
     previousNames: ["EigenLayer"],
     address: "0xec53bf9167f50cdeb3ae105f56099aaab9061f83",
     symbol: "EIGEN",
-    url: "https://www.eigenlayer.xyz/",
+    url: "https://www.eigencloud.xyz",
     description:
       "EigenCloud is a protocol built on Ethereum that introduces restaking, a new primitive in cryptoeconomic security. This primitive enables the reuse of ETH on the consensus layer",
     chain: "Ethereum",
@@ -9604,7 +9615,7 @@ const data3_1: Protocol[] = [
     module: "eigenlayer/index.js",
     twitter: "eigenlayer",
     forkedFrom: [],
-    audit_links: ["https://docs.eigenlayer.xyz/security/audits"],
+    audit_links: ["https://docs.eigencloud.xyz/eigenlayer/security/audits"],
     github: ["Layr-Labs"],
     listedAt: 1686776222,
     dimensions: {
@@ -13174,6 +13185,10 @@ const data3_1: Protocol[] = [
       "https://github.com/Narwhal-Finance/Public-docs/blob/main/Zokyo_Narwhal_Finance_Audit_Report_June_2023.pdf",
     ],
     listedAt: 1689860528,
+    dimensions: {
+      fees: "narwhal-finance",
+      derivatives: "narwhal-finance"
+    }
   },
   {
     id: "3259",
@@ -17650,6 +17665,9 @@ const data3_1: Protocol[] = [
     audit_links: ["https://docs.parallel.fi/parallel-finance/security"],
     listedAt: 1693238053,
   },
+]
+
+const data3_1: Protocol[] = [
   {
     id: "3449",
     name: "Parallel Staking",
@@ -23399,11 +23417,11 @@ const data3_1: Protocol[] = [
     gecko_id: null,
     cmcId: null,
     category: "Yield Lottery",
-    chains: ["Optimism"],
+    chains: ["Arbitrum", "Base", "Ethereum", "Gnosis", "Optimism", "Scroll", "World Chain"],
     module: "pooltogether-v5/index.js",
     twitter: "PoolTogether_",
     audit_links: ["https://docs.pooltogether.com/security/audits"],
-    oraclesBreakdown: [ { name: "Chainlink", type: "Primary", proof: []} ],
+    oraclesBreakdown: [ { name: "Witnet", type: "RNG", proof: ["https://dev.pooltogether.com/protocol/deployments/", "https://arbiscan.io/address/0xad1b8ec0151f13ba563226092b5f7308d8dc107b#code", "https://basescan.org/address/0x74ebf391831c0757b5a4335f2f3abbb1499d18f0#code", "https://etherscan.io/address/0xf93329e78feff1145fce03a79d5b356588dea215#code", "https://gnosisscan.io/address/0x47c9212cc5c0836521346ce9b3d03ca91edf1123#code", "https://optimistic.etherscan.io/address/0x3d2Ef6C091f7CB69f06Ec3117F36A28BC596aa7B#code", "https://scrollscan.com/address/0x4d971a28bb23c6354f7cf1f4666c34b00e94f608#code", "https://worldscan.org/address/0x4a411d67cd47bfc41395946be069deb97a171437#code" ]} ],
     parentProtocol: "parent#pooltogether",
     listedAt: 1698271658,
     dimensions: {
@@ -25142,7 +25160,7 @@ const data3_1: Protocol[] = [
     name: "Kamino Lend",
     address: "solana:KMNo3nJsBXfcpJTVhZcXLW7RmTwTt4GVFE7suUBo9sS",
     symbol: "KMNO",
-    url: "https://kamino.finance/",
+    url: "https://kamino.com/",
     description:
       "Kamino Lend (K-Lend) is a novel peer-to-pool borrowing primitive designed as foundational infrastructure to power complex financial products with leverage and automation and as a decentralized matchmaker between borrowers and lenders",
     chain: "Solana",
@@ -25174,7 +25192,7 @@ const data3_1: Protocol[] = [
     forkedFrom: [],
     module: "kamino-lending/index.js",
     twitter: "KaminoFinance",
-    audit_links: ["https://github.com/hubbleprotocol/kamino-audits"],
+    audit_links: ["https://kamino.com/security#security-audits"],
     listedAt: 1699615528,
     parentProtocol: "parent#kamino-finance",
     dimensions: {
@@ -25315,7 +25333,7 @@ const data3_1: Protocol[] = [
     name: "Arbitrum Bridge",
     address: "arbitrum:0x912ce59144191c1204e64559fe8253a0e49e6548",
     symbol: "ARB",
-    url: "https://bridge.arbitrum.io",
+    url: "https://portal.arbitrum.io/bridge",
     description:
       "The Arbitrum Bridge acts as a secure channel connecting Ethereum's mainnet (Layer-1) with the Arbitrum Rollup (Layer-2). This bridge allows users to transfer assets, like ETH or ERC-20 tokens, between these layers",
     chain: "Arbitrum",
@@ -25335,7 +25353,7 @@ const data3_1: Protocol[] = [
     name: "Arbitrum Nova Bridge",
     address: "arbitrum:0x912ce59144191c1204e64559fe8253a0e49e6548",
     symbol: "ARB",
-    url: "https://bridge.arbitrum.io/?l2ChainId=42170",
+    url: "https://portal.arbitrum.io/bridge?l2ChainId=42170",
     description:
       "The Arbitrum Nova Bridge acts as a secure channel connecting Ethereum's mainnet (Layer-1) with the Arbitrum Rollup (Layer-2). This bridge allows users to transfer assets, like ETH or ERC-20 tokens, between these layers",
     chain: "Arbitrum",
@@ -25374,7 +25392,7 @@ const data3_1: Protocol[] = [
     name: "Base Bridge",
     address: null,
     symbol: "-",
-    url: "https://bridge.base.org/deposit",
+    url: "https://docs.base.org/base-chain/network-information/bridges-mainnet",
     description:
       "Base Bridge enables the transfer of certain digital assets and other data back and forth between Ethereum and Base.",
     chain: "Base",
@@ -25388,6 +25406,7 @@ const data3_1: Protocol[] = [
     forkedFrom: [],
     module: "base/index.js",
     twitter: "BuildOnBase",
+    deprecated: true,
   },
   {
     id: "3781",
@@ -35866,7 +35885,8 @@ const data3_2: Protocol[] = [
     listedAt: 1709315721,
     dimensions: {
       fees: "pac-finance"
-    }
+    },
+    deadUrl: true,
   },
   {
     id: "4212",
@@ -40983,7 +41003,7 @@ const data3_2: Protocol[] = [
     name: "ether.fi Liquid",
     address: "0xfe0c30065b384f05761f15d0cc899d4f9f9cc0eb",
     symbol: "ETHFI",
-    url: "https://app.ether.fi/liquid",
+    url: "https://www.ether.fi/app/liquid",
     description:
       "Liquid is an automated DeFi strategy vault that provides ether.fi users a simple access point to use their eETH in the DeFi ecosystem",
     chain: "Ethereum",
@@ -41424,13 +41444,13 @@ const data3_2: Protocol[] = [
   {
     id: "4448",
     name: "Superform",
-    address: null,
-    symbol: "-",
+    address: "0x1d926bbe67425c9f507b9a0e8030eedc7880bf33",
+    symbol: "UP",
     url: "https://www.superform.xyz/",
     description:
       "Superform is the onchain wealth app. Superform earns you the best returns on your crypto to grow your onchain wealth. Use SuperVaults to automatically optimize your earnings, or build your customized portfolio by directly depositing into over 800 earning opportunities",
-    chain: "Polygon",
-    logo: `${baseIconsUrl}/superform.png`,
+    chain: "Ethereum",
+    logo: `${baseIconsUrl}/superform.svg`,
     audits: "2",
     audit_note: null,
     gecko_id: null,
@@ -41440,7 +41460,11 @@ const data3_2: Protocol[] = [
     module: "superform/index.js",
     forkedFrom: [],
     twitter: "superformxyz",
-    audit_links: ["https://github.com/superform-xyz/superform-core/tree/main/security-review"],
+    audit_links: [
+      "https://github.com/superform-xyz/superform-core/tree/main/security-review", 
+      "https://github.com/superform-xyz/v2-core/tree/dev/audits", 
+      "https://github.com/superform-xyz/v2-periphery/tree/dev/audits"
+    ],
     github: ["superform-xyz"],
     listedAt: 1712365922,
   },
@@ -41712,13 +41736,14 @@ const data3_2: Protocol[] = [
   },
   {
     id: "4460",
-    name: "Karak",
+    name: "OpenGDP Shared Security",
+    previousNames: ["Karak"],
     address: null,
     symbol: "-",
     url: "https://karak.network",
     description: "The universal restaking layer powered by the entire cryptoeconomy.",
     chain: "Ethereum",
-    logo: `${baseIconsUrl}/karak.png`,
+    logo: `${baseIconsUrl}/opengdp-shared-security.jpg`,
     audits: "0",
     audit_note: null,
     gecko_id: null,
@@ -41727,7 +41752,7 @@ const data3_2: Protocol[] = [
     chains: ["Ethereum", "Arbitrum"],
     module: "karak/index.js",
     forkedFrom: [],
-    twitter: "Karak_Network",
+    twitter: "OpenGDP",
     parentProtocol: "parent#subseaprotocol",
     listedAt: 1712668302,
   },
@@ -42216,7 +42241,7 @@ const data3_2: Protocol[] = [
     name: "Hyperliquid Bridge",
     address: "0x0d01dc56dcaaca66ad901c959b4011ec",
     symbol: "HYPE",
-    url: "https://hyperliquid.xyz",
+    url: "https://hyperfoundation.org",
     referralUrl: "https://app.hyperliquid.xyz/join/DEFILLAMAO",
     description: "Hyperliquid is a decentralized perpetual exchange with best-in-class speed, liquidity, and price.",
     chain: "Arbitrum",
@@ -45884,21 +45909,21 @@ const data3_2: Protocol[] = [
     name: "BounceBit Staking", // previous BBScan than previous BounceBit LSD
     address: null,
     symbol: "-",
-    assetToken: "stBBTC", // also BB
-    url: "https://portal.bouncebit.io/stake",
+    assetToken: "BBTC", // also BB BBUSD BBETH BBSOL
+    url: "https://portal.bouncebit.io/farm",
     description:
-      "BounceBit natively provides a Liquid Staking smart contract. If you stake your BTC or BB, you will receive a Liquid Staking Derivative (LSD). This LSD is like a voucher that testifies that you are delegating your assets to a validator.",
+      "BounceBit Farm lets users stake their rebasing, yield-embedded BB-Tokens—minted natively when subscribing to BounceBit vaults—to earn stBB rewards sourced from node-staking. BB-Tokens are non-bridgeable, redeemable only on BounceBit, and stakeable in Farm contracts for additional incentives.",
     chain: "BounceBit",
     logo: `${baseIconsUrl}/bouncebit-staking.jpg`,
     audits: "0",
     audit_note: null,
     gecko_id: null,
     cmcId: null,
-    category: "Bridge",
+    category: "Farm",
     chains: ["BounceBit"],
     module: "bouncebit-lsd/index.js",
     forkedFrom: [],
-    twitter: "bounce_bit",
+    twitter: "bouncebit",
     listedAt: 1716205027,
   },
   /*
@@ -47988,6 +48013,9 @@ const data3_2: Protocol[] = [
     ],
     listedAt: 1717598971,
   },
+]
+
+const data3_3: Protocol[] = [
   {
     id: "4728",
     name: "Blasterswap V3",
@@ -48692,6 +48720,9 @@ const data3_2: Protocol[] = [
     audit_links: ["https://github.com/symbioticfi/collateral/tree/main/audits"],
     github: ["symbioticfi"],
     listedAt: 1718109849,
+    dimensions: {
+      fees: "symbiotic",
+    }
   },
   {
     id: "4758",
@@ -52448,20 +52479,24 @@ const data3_2: Protocol[] = [
     address: "0xc477d038d5420c6a9e0b031712f61c5120090de9",
     symbol: "BOSON",
     url: "https://www.bosonprotocol.io",
-    description: "Sell physical products as NFTs, everywhere using branded $BOSON tokens",
+    description: "Civilization-scale infrastructure for the decentralized exchange of any assets between any agent, human or AI, from everyday commerce to high-value RWAs",
     chain: "Ethereum",
     logo: `${baseIconsUrl}/boson-protocol.jpg`,
-    audits: "0",
+    audits: "2",
     audit_note: null,
     gecko_id: "boson-protocol",
     cmcId: "8827",
-    category: "Farm",
+    tags: ["Collectibles"],
     chains: ["Ethereum"],
     forkedFrom: [],
     module: "boson/index.js",
     twitter: "BosonProtocol",
+    audit_links: ["https://github.com/bosonprotocol/boson-protocol-contracts/blob/main/docs/audits.md"],
     github: ["bosonprotocol"],
     listedAt: 1721821003,
+    dimensions: {
+      fees: "boson"
+    }
   },
   {
     id: "4917",
@@ -53893,7 +53928,7 @@ const data3_2: Protocol[] = [
     symbol: "-",
     url: "https://app.reya.xyz/trade?referredBy=z9hwcwwd",
     referralUrl: "https://app.reya.xyz/trade?referredBy=z9hwcwwd",
-    description: "Reya DEX is a perpetual futures exchange on the Reya Network",
+    description: "The only DEX where speed never compromises security. Uniquely built as a based-rollup powered by zk-proofs, Reya DEX delivers 1 millisecond speed, 0 trading fess and 100% Ethereum uptime and security",
     chain: "Reya Network",
     logo: `${baseIconsUrl}/reya-perps.jpg`,
     audits: "2",
@@ -61680,8 +61715,7 @@ const data3_2: Protocol[] = [
     gecko_id: "nabla",
     cmcId: null,
     category: "Dexs",
-    chains: ["Arbitrum", "Base", "Berachain"],
-    // https://github.com/DefiLlama/DefiLlama-Adapters/pull/12127
+    chains: ["Arbitrum", "Base", "Berachain", "Hyperliquid L1", "Monad"],
     oraclesBreakdown: [ { name: "Pyth", type: "Primary", proof: [] } ],
     forkedFrom: [],
     module: "nabla/index.js",
@@ -62684,11 +62718,12 @@ const data3_2: Protocol[] = [
   },
   {
     id: "5351",
-    name: "Mantle Restaking",
+    name: "mETH Protocol",
+    previousNames: ["Mantle Restaking"],
     address: null,
     symbol: "-",
     assetToken: "mETH",
-    url: "https://meth.mantle.xyz/restake",
+    url: "https://www.methprotocol.xyz/",
     description:
       "Liquid Restaking on Ethereum",
     chain: "Ethereum",
@@ -62700,8 +62735,9 @@ const data3_2: Protocol[] = [
     category: "Liquid Restaking",
     chains: ["Ethereum"],
     module: "mantle-restaking/index.js",
-    twitter: "Mantle_Official",
+    twitter: "mETHProtocol",
     forkedFrom: [],
+    audit_links: ["https://docs.mantle.xyz/meth/security/audits"],
     listedAt: 1731495743
   },
   {
@@ -64943,7 +64979,7 @@ const data3_2: Protocol[] = [
     name: "Hyperliquid HLP",
     address: "hyperliquid:0x0d01dc56dcaaca66ad901c959b4011ec",
     symbol: "HYPE",
-    url: "https://hyperliquid.xyz",
+    url: "https://hyperfoundation.org",
     referralUrl: "https://app.hyperliquid.xyz/join/DEFILLAMAO",
     description: "Hyperliquidity Provider (HLP) is a protocol vault that does market making and liquidations and receives a portion of trading fees",
     chain: "Hyperliquid L1",
@@ -66257,7 +66293,7 @@ const data3_2: Protocol[] = [
     name: "Hyperliquid Perps",
     address: "hyperliquid:0x0d01dc56dcaaca66ad901c959b4011ec",
     symbol: "HYPE",
-    url: "https://hyperliquid.xyz",
+    url: "https://hyperfoundation.org",
     referralUrl: "https://app.hyperliquid.xyz/join/DEFILLAMAO",
     description: "Hyperliquid is a decentralized perpetual exchange with best-in-class speed, liquidity, and price.",
     chain: "Hyperliquid L1",
@@ -66278,7 +66314,7 @@ const data3_2: Protocol[] = [
     dimensions: {
       derivatives: "hyperliquid-perp",
       fees: "hyperliquid-perp",   // now we count separately perps and spot
-      "open-interest": "hyperliquid-perp"
+      "open-interest": "hyperliquid-perp-oi"
     }
   },
   {
@@ -67145,7 +67181,10 @@ const data3_2: Protocol[] = [
     github: ["hopperlabsxyz"],
     audit_links: ["https://docs.lagoon.finance/resources/audits"],
     twitter: "lagoon_finance",
-    listedAt: 1734930934
+    listedAt: 1734930934,
+    dimensions: {
+      fees: "lagoon",
+    }
    },
   {
     id: "5548",
@@ -67445,5 +67484,5 @@ const data3_2: Protocol[] = [
   },
   // Please don't add new litings here; please use data4.ts
 ];
-const data3 = data3_1.concat(data3_2)
+const data3 = data3_0.concat(data3_1, data3_2, data3_3);
 export default data3;
