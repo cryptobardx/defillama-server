@@ -1,11 +1,12 @@
 import { successResponse, wrap, IResponse, errorResponse } from "./utils/shared";
 import ddb from "./utils/shared/dynamodb";
-import { getProvider } from "@defillama/sdk/build/general"
 import fetch from "node-fetch"
 import { getCurrentUnixTimestamp } from "./utils/date";
 import genesisBlockTimes from './genesisBlockTimes';
 import { sendMessage } from "../../defi/src/utils/discord";
 import { DAY } from "./utils/processCoin";
+import { getProvider } from "@defillama/sdk/build/general"
+import { resolveChain } from "./utils/chainIdMap"
 
 interface TimestampBlock {
   height: number;
@@ -55,7 +56,7 @@ function zkSyncBlockProvider() {
   };
 }
 
-export const blockPK = (chain: string) => `block#${chain}`
+export const blockPK = (chain: string) => `block#${chain.toLowerCase()}`
 
 async function isFaultyBlock(block: any, chain: string) {
   if (block === null) return true;
@@ -149,7 +150,8 @@ function getClosestBlock(PK: string, timestamp: number, search: "high" | "low") 
 const handler = async (
   event: any
 ): Promise<IResponse> => {
-  const { chain, timestamp: timestampRaw } = event.pathParameters!
+  const { chain: chainRaw, timestamp: timestampRaw } = event.pathParameters!
+  const chain = resolveChain(chainRaw)
   const provider = getExtraProvider(chain)
   if (provider === undefined || chain === undefined  || provider == null) {
     return errorResponse({
@@ -276,8 +278,9 @@ async function findBlockForTimestamp(
 const batchHandler = async (
   event: any
 ): Promise<IResponse> => {
-  const { chain } = event.pathParameters!;
-  
+  const { chain: chainRaw } = event.pathParameters!;
+  const chain = resolveChain(chainRaw);
+
   if (!event.body) {
     return errorResponse({
       message: "Request body is required"

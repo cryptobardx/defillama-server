@@ -1,11 +1,10 @@
 import fetch from "node-fetch";
-import { decimals, symbol } from "@defillama/sdk/build/erc20";
+import * as sdk from '@defillama/sdk'
+const { decimals, symbol, } = sdk.erc20
 import { PublicKey } from "@solana/web3.js";
 import { getConnection } from "../adapters/solana/utils";
 import { chainsThatShouldNotBeLowerCased } from "../utils/shared/constants";
 import { cairoErc20Abis, call, feltArrToStr } from "../adapters/utils/starknet";
-
-import * as sdk from "@defillama/sdk";
 
 let solanaTokens: Promise<any>;
 let _solanaTokens: Promise<any>;
@@ -186,6 +185,18 @@ export async function getSymbolAndDecimals(
           decimals: await ethApi.call({ target: tokenAddress, abi: "erc20:decimals" }),
         };
       } else { return; }
+    case 'algorand':
+      try {
+        const { asset: { params: algoParams } } = await fetch(
+          `https://mainnet-api.algonode.cloud/v2/assets/${tokenAddress}`,
+        ).then((r) => r.json()) as any;
+        return {
+          symbol: algoParams['unit-name'] ?? algoParams.name ?? coingeckoSymbol.toUpperCase(),
+          decimals: algoParams.decimals,
+        };
+      } catch (e) {
+        return;
+      }
   }
 
 

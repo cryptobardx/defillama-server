@@ -18,6 +18,19 @@ export const CategoryTagMap = {
     "Private Equity",
     "Tokenized Trading Strategies"
   ],
+  Dexs: [
+    "AMM",
+    "CLMM",
+    "ve(3,3)",
+    "StableSwap",
+    "Weighted Pool AMM",
+    "Hook-based AMM",
+    "Prop AMM",
+    "Order Book",
+    "DLMM",
+    "DLL",
+    "RFQ"
+  ],
 }
 
 export const TagCatetgoryMap: Record<string, string> = {}

@@ -1,3 +1,4 @@
+import { runInPromisePool } from "@defillama/sdk/build/generalUtil";
 import { getCurrentUnixTimestamp } from "../../utils/date";
 import { nullAddress } from "../../utils/shared/constants";
 import { Write } from "../utils/dbInterfaces";
@@ -163,6 +164,18 @@ const configs: { [adapter: string]: Config } = {
     underlying: "0x1abaea1f7c830bd89acc67ec4af516284b1bc33c",
     address: "0xa0769f7A8fC65e47dE93797b4e21C073c117Fc80",
   },
+  UKTBL: {
+    rate: async ({ api }) => {
+      const rate = await api.call({
+        abi: "function getLatestPrice() external view returns (uint256)",
+        target: "0xf695Df6c0f3bB45918A7A82e83348FC59517734E",
+      });
+      return rate / 1e6;
+    },
+    chain: "polygon",
+    underlying: "0x27f6c8289550fce67f6b50bed1f519966afe5287",
+    address: "0x970E2aDC2fdF53AEa6B5fa73ca6dc30eAFEDfe3D",
+  },
   aETH: {
     rate: async ({ api }) => {
       const rate = await api.call({
@@ -306,7 +319,7 @@ const configs: { [adapter: string]: Config } = {
     rate: async ({ api }) => {
       const rate = await api.call({
         abi: "function convertToAssets(uint256 shares) external view returns (uint256)",
-        target: "0x36036fFd9B1C6966ab23209E073c68Eb9A992f50",
+        target: "0xfe6920eb6c421f1179ca8c8d4170530cdbdfd77a",
         params: 1e12,
       });
       return rate / 1e12;
@@ -581,6 +594,8 @@ const configs: { [adapter: string]: Config } = {
         target: "0x8a78e6b7E15C4Ae3aeAeE3bf0DE4F2de4078c1cD",
         params: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
       });
+      if (rate.isSuspicious || rate.timestamp < api.timestamp - 3 * 60 * 60)
+        throw new Error(`strETH stale rate`);
       return 1e18 / rate.priceD18;
     },
     chain: "ethereum",
@@ -664,6 +679,8 @@ const configs: { [adapter: string]: Config } = {
         abi: "function latestRoundData() view returns (uint80 roundId, int256 answer, uint256 startedAt, uint256 updatedAt, uint80 answeredInRound)",
         target: "0xEdC6287D3D41b322AF600317628D7E226DD3add4",
       });
+      if (rate.updatedAt < api.timestamp - 3 * 60 * 60)
+        throw new Error(`STAC stale rate`);
       return rate.answer / 1e8;
     },
     chain: "ethereum",
@@ -688,22 +705,124 @@ const configs: { [adapter: string]: Config } = {
         abi: "function latestRoundData() view returns (uint80 roundId, int256 answer, uint256 startedAt, uint256 updatedAt, uint80 answeredInRound)",
         target: "0x24c8964338Deb5204B096039147B8e8C3AEa42Cc",
       });
+      if (rate.updatedAt < api.timestamp - 24 * 60 * 60)
+        throw new Error(`MI4 stale rate`);
       return rate.answer / 1e8;
     },
     chain: "mantle",
     underlying: "0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9",
     address: "0x671642Ac281C760e34251d51bC9eEF27026F3B7a",
   },
+  ACRDX: {
+    rate: async ({ api }) => {
+      const rate = await api.call({
+        abi: "uint256:pricePerShare",
+        target: "0x74a739ea1dc67c5a0179ebad665d1d3c4b80b712",
+      });
+      return rate / 1e6;
+    },
+    chain: "ethereum",
+    underlying: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+    address: "0x9477724Bb54AD5417de8Baff29e59DF3fB4DA74f",
+  },
+  deCRDx: {
+    rate: async ({ api }) => {
+      const rate = await api.call({
+        abi: "uint256:pricePerShare",
+        target: "0x67fDa49952Cd0b059d019E51B58e742F9592bB8f",
+      });
+      return rate / 1e6;
+    },
+    chain: "optimism",
+    underlying: "0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85",
+    address: "0x9E2679eABFF131b8b1b48fF7566140794E0eEdc4",
+  },
+  "eUSD0-4": {
+    rate: async ({ api }) => {
+      const raw = await api.call({
+        abi: "function convertToAssets(uint256) external view returns (uint256)",
+        target: "0xd001f0a15d272542687b2677ba627f48a4333b5d",
+        params: [1e10],
+      });
+      return raw / 1e10;
+    },
+    chain: "ethereum",
+    underlying: "0x73A15FeD60Bf67631dC6cd7Bc5B6e8da8190aCF5",
+    address: "0xd001f0a15d272542687b2677ba627f48a4333b5d",
+  },
+  iSUSD: {
+    rate: async ({ api }) => {
+      const rate = await api.call({
+        abi: "uint256:tokenPrice",
+        target: "0xd8D25f03EBbA94E15Df2eD4d6D38276B595593c1",
+      });
+      return rate / 1e18;
+    },
+    chain: "rsk",
+    underlying: "0xe700691dA7b9851F2F35f8b8182c69c53CcaD9Db",
+    address: "0xd8D25f03EBbA94E15Df2eD4d6D38276B595593c1",
+  },
+  efixDI: {
+    rate: async ({ api }) => {
+      const rate = await api.call({
+        abi: "function latestRoundData() view returns (uint80 roundId, int256 answer, uint256 startedAt, uint256 updatedAt, uint80 answeredInRound)",
+        target: "0xB90DA3ff54C3ED09115abf6FbA0Ff4645586af2c",
+      });
+      if (rate.updatedAt < api.timestamp - 3 * 60 * 60)
+        throw new Error(`efixDI stale rate`);
+      return rate.answer / 1e8;
+    },
+    chain: "polygon",
+    underlying: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+    address: "0x04082b283818D9d0dd9Ee8742892eEe5CC396441",
+  },
+  'mM1-USD': {
+    rate: async ({ api }) => {
+      const rate = await api.call({
+        abi: "function latestRoundData() view returns (uint80 roundId, int256 answer, uint256 startedAt, uint256 updatedAt, uint80 answeredInRound)",
+        target: "0xad316aA927c0970C2e8f0B903211D0bd19A10702",
+      });
+      if (rate.updatedAt < api.timestamp - 3 * 60 * 60)
+        throw new Error(`mM1-USD stale rate`);
+      return rate.answer / 1e8;
+    },
+    chain: "ethereum",
+    underlying: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+    address: "0xCc5C22C7A6BCC25e66726AeF011dDE74289ED203",
+  },
+  OALS2T: {
+    rate: async ({ api }) => {
+      const rate = await api.call({
+        abi: "function shareValue() view returns (uint256 value, uint256 timestamp)",
+        target: "0x04E5a6f7eE9977D38f57945c31B72178c9Cf1c06",
+      });
+      if (rate.timestamp < api.timestamp - 3 * 60 * 60)
+        throw new Error(`OALS2T stale rate`);
+      return rate.value / 1e18;
+    },
+    chain: "plume_mainnet",
+    underlying: "0xda6087E69C51E7D31b6DBAD276a3c44703DFdCAd",
+    address: "0x04E5a6f7eE9977D38f57945c31B72178c9Cf1c06",
+  }
 };
 
 export async function derivs(timestamp: number) {
-  return Promise.all(
-    Object.keys(configs).map((k: string) =>
-      deriv(timestamp, k, configs[k]).catch((e) => {
+  let all = Object.keys(configs)
+  const writes: Write[] = []
+  await runInPromisePool({
+    items: Object.keys(configs), 
+    concurrency: 10, 
+    processor: async (k: string) => {
+      const res = await deriv(timestamp, k, configs[k]).catch((e) => {
         console.log(`API deriv ${k} failed with ${e?.message ?? e}`);
       })
-    )
-  );
+
+      all = all.filter(item => item !== k)
+      if (res) writes.push(...res)
+    }
+  })
+
+  return writes
 }
 
 async function deriv(timestamp: number, projectName: string, config: Config) {

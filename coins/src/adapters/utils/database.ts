@@ -2,7 +2,7 @@ require("dotenv").config();
 import axios from "axios";
 import { getCurrentUnixTimestamp } from "../../utils/date";
 import { batchGet, batchWrite } from "../../utils/shared/dynamodb";
-import getTVLOfRecordClosestToTimestamp from "../../utils/shared/getRecordClosestToTimestamp";
+import { getRecordClosestToTimestamp } from "../../utils/shared/getRecordClosestToTimestamp";
 import {
   Write,
   DbEntry,
@@ -11,14 +11,31 @@ import {
   CoinData,
   Metadata,
 } from "./dbInterfaces";
-import { batchWrite2, translateItems } from "../../../coins2";
 const confidenceThreshold: number = 0.3;
 import pLimit from "p-limit";
-import { sliceIntoChunks } from "@defillama/sdk/build/util";
+
+import * as sdk from '@defillama/sdk'
+const { sliceIntoChunks, } = sdk.util
+
 import produceKafkaTopics from "../../utils/coins3/produce";
 import { lowercase } from "../../utils/coingeckoPlatforms";
 import { sendMessage } from "../../../../defi/src/utils/discord";
 import { chainsThatShouldNotBeLowerCased } from "../../utils/shared/constants";
+
+function normalizedPKFor(pk: string): string {
+  if (pk.startsWith("coingecko#")) return pk.toLowerCase();
+  if (pk.startsWith("block#")) return pk.toLowerCase();
+  if (!pk.startsWith("asset#")) return pk;
+  const body = pk.slice("asset#".length); // chain:address
+  const colonIdx = body.indexOf(":");
+  if (colonIdx === -1) return pk.toLowerCase();
+  const chain = body.slice(0, colonIdx).toLowerCase();
+  let address = body.slice(colonIdx + 1).toLowerCase();
+  if (chain === "starknet" && address.length === 66 && address.startsWith("0x0")) {
+    address = address.replace(/^0x0+/, "0x");
+  }
+  return `asset#${chain}:${address}`;
+}
 
 const rateLimited = pLimit(10);
 process.env.tableName = "prod-coins-table";
@@ -51,8 +68,8 @@ export async function getTokenAndRedirectData(
   const response: CoinData[] = [];
   await rateLimited(async () => {
     if (!lastCacheClear) lastCacheClear = getCurrentUnixTimestamp();
-    // if (getCurrentUnixTimestamp() - lastCacheClear > 60 * 15)
-    cache = {}; // clear cache every 15 minutes
+    if (getCurrentUnixTimestamp() - lastCacheClear > 60 * 15)
+      cache = {}; // clear cache every 15 minutes
 
     const cacheKey = `${chain}-${hoursRange}`;
     if (!cache[cacheKey]) cache[cacheKey] = {};
@@ -217,7 +234,7 @@ async function getTokenAndRedirectDataDB(
     // timestamped origin entries
     let timedDbEntries: any[] = await Promise.all(
       tokens.slice(lower, upper).map((t: string) => {
-        return getTVLOfRecordClosestToTimestamp(
+        return getRecordClosestToTimestamp(
           chain == "coingecko"
             ? `coingecko#${t.toLowerCase()}`
             : `asset#${chain}:${lowercase(t, chain)}`,
@@ -255,7 +272,7 @@ async function getTokenAndRedirectDataDB(
     let timedRedirects: any[] = await Promise.all(
       redirects.map((r: DbQuery) => {
         if (r.PK == undefined) return;
-        return getTVLOfRecordClosestToTimestamp(
+        return getRecordClosestToTimestamp(
           r.PK,
           timestamp,
           hoursRange * 60 * 60,
@@ -383,8 +400,8 @@ function aggregateTokenAndRedirectData(reads: Read[]) {
         "confidence" in r.dbEntry
           ? r.dbEntry.confidence
           : r.redirect.length != 0 && "confidence" in r.redirect[0]
-          ? r.redirect[0].confidence
-          : undefined;
+            ? r.redirect[0].confidence
+            : undefined;
 
       return {
         chain:
@@ -412,14 +429,30 @@ function aggregateTokenAndRedirectData(reads: Read[]) {
 export async function batchWriteWithAlerts(
   items: any[],
   failOnError: boolean,
-): Promise<void> {
+): Promise<{ writeCount: number } | undefined> {
   try {
     const { previousItems, redirectChanges } = await readPreviousValues(items);
     const filteredItems: any[] =
-      await checkMovement(items, previousItems);
+      (await checkMovement(items, previousItems)).filter((i: any) => isFinite(i.price) || i.redirect);
     const writeItems = [...filteredItems, ...redirectChanges]
-    await batchWrite(writeItems, failOnError);
+    const ddbWriteResult = await batchWrite(writeItems, failOnError);
     await produceKafkaTopics(writeItems as any[]);
+
+    // Dual-write: normalized PKs to DDB only (no Kafka, no alerts)
+    const normalizedMap = new Map<string, any>();
+    writeItems.forEach((item: any) => {
+      const nPK = normalizedPKFor(item.PK);
+      if (nPK === item.PK) return;
+      const copy = { ...item, PK: nPK };
+      if (copy.redirect) copy.redirect = normalizedPKFor(copy.redirect);
+      normalizedMap.set(`${copy.PK}::${copy.SK}`, copy);
+    });
+    const normalizedItems = [...normalizedMap.values()];
+    if (normalizedItems.length > 0) {
+      await batchWrite(normalizedItems, false);
+    }
+
+    return ddbWriteResult;
   } catch (e) {
     const adapter = items.find((i) => i.adapter != null)?.adapter;
     console.log(`batchWriteWithAlerts failed with: ${e}`);
@@ -436,20 +469,6 @@ export async function batchWriteWithAlerts(
         true,
       );
   }
-}
-export async function batchWrite2WithAlerts(
-  items: any[],
-) {
-  const { previousItems, redirectChanges } = await readPreviousValues(items);
-  const filteredItems: any[] =
-    await checkMovement(items, previousItems);
-
-  await batchWrite2(
-    await translateItems(filteredItems),
-    undefined,
-    undefined,
-    "DB 390",
-  );
 }
 async function readPreviousValues(
   items: any[],
@@ -524,9 +543,8 @@ async function checkMovement(
       if (percentageChange > margin) {
         errors += `${d.adapter} \t ${d.PK.substring(
           d.PK.indexOf("#") + 1,
-        )} \t ${(percentageChange * 100).toFixed(3)}% change from $${
-          previousItem.price
-        } to $${d.price}\n`;
+        )} \t ${(percentageChange * 100).toFixed(3)}% change from $${previousItem.price
+          } to $${d.price}\n`;
         return;
       }
     }
