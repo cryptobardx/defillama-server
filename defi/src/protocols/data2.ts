@@ -501,7 +501,6 @@ const data2: Protocol[] = [
     ],
     listedAt: 1644685001,
     governanceID: ["snapshot:moonwell-apollo-governance.eth"],
-    github: ["moonwell-fi"],
     dimensions: {
       fees: "moonwell-apollo"
     }
@@ -2478,6 +2477,7 @@ const data2: Protocol[] = [
     audit_links: ["https://consensys.net/diligence/audits/private/adash47d-chainbridge/"],
     listedAt: 1646164456,
     github: ["RelayChain"],
+    deadUrl: true
   },
   {
     id: "1492",
@@ -2893,6 +2893,7 @@ const data2: Protocol[] = [
     module: "miniversefinance/index.js",
     twitter: "miniverse_fin",
     listedAt: 1646428683,
+    deadUrl: true,
   },
   {
     id: "1511",
@@ -2965,7 +2966,7 @@ const data2: Protocol[] = [
     name: "Granary Finance",
     address: "0xf88baf18fab7e330fa0c4f83949e23f52fececce",
     symbol: "GRAIN",
-    url: "https://granary.finance/",
+    url: "https://granary.finance/",//deadUrl
     description:
       "Granary Finance is a decentralized, user-driven borrowing and lending liquidity market inspired by AAVE.",
     chain: "Fantom",
@@ -3029,19 +3030,20 @@ const data2: Protocol[] = [
     address: null,
     symbol: "-",
     url: "https://domination.finance",
-    description: "The world's first DEX for dominance trading.",
+    description: "Trade market share, not price.",
     chain: "Ethereum",
     logo: `${baseIconsUrl}/domination-finance.png`,
     audits: "2",
     gecko_id: null,
     cmcId: null,
-    category: "Synthetics",
+    category: "Derivatives",
     chains: ["Ethereum", "Polygon", "Boba"],
     oracles: ["UMA"],
     module: "domfi/index.js",
     twitter: "dominationfi",
-    audit_links: ["https://docs.domination.finance/zokyo-domfi-vault-audit.pdf"],
+    audit_links: ["https://docs.domination.finance/docs/security/audits/"],
     listedAt: 1646684579,
+    hallmarks: [['2026-04-18', "Derivatives launch"]],
   },
   {
     id: "1518",
@@ -3196,6 +3198,7 @@ const data2: Protocol[] = [
     parentProtocol: "parent#mars-protocol",
     openSource: true,
     listedAt: 1646854377,
+    deadUrl: true,
   },
   {
     id: "1525",
@@ -3301,6 +3304,7 @@ const data2: Protocol[] = [
     module: "gamblefi/index.js",
     twitter: "GambleFinance",
     listedAt: 1646949250,
+    deadUrl: true,
   },
   {
     id: "1530",
@@ -3958,7 +3962,8 @@ const data2: Protocol[] = [
     module: "kdlaunch/index.js",
     twitter: "KdLaunch",
     listedAt: 1647474666,
-    deprecated: true
+    deprecated: true,
+    deadUrl: true,
   },
   {
     id: "1560",
@@ -5204,7 +5209,8 @@ const data2: Protocol[] = [
     dimensions: {
       fees: "radioshack",
       dexs: "radioshack"
-    }
+    },
+    deadUrl: true,
   },
   {
     id: "1617",
@@ -5732,6 +5738,7 @@ const data2: Protocol[] = [
     module: "eklipse/index.js",
     twitter: "eklipseFinance",
     listedAt: 1649713407,
+    deadUrl: true,
   },
   {
     id: "1641",
@@ -5758,8 +5765,8 @@ const data2: Protocol[] = [
   {
     id: "1642",
     name: "Folks Finance Lending",
-    address: null,
-    symbol: "-",
+    address: "avax:0xff7f8f301f7a706e3cfd3d2275f5dc0b9ee8009b",
+    symbol: "FOLKS",
     url: "https://folks.finance/",
     description: "Innovative DeFi platform to lend, borrow, trade and manage digital assets.",
     chain: "Algorand",
@@ -8495,6 +8502,7 @@ const data2: Protocol[] = [
     module: "jelly/index.js",
     twitter: "jellyprotocol",
     listedAt: 1652905173,
+    deadUrl: true,
   },
   {
     id: "1769",
@@ -8534,6 +8542,7 @@ const data2: Protocol[] = [
     twitter: "ClayStack_HQ",
     parentProtocol: "parent#claystack",
     listedAt: 1652905173,
+    deadUrl: true,
   },
   {
     id: "1771",
@@ -8686,7 +8695,8 @@ const data2: Protocol[] = [
     dimensions: {
       fees: "pandora",
       dexs: "pandora"
-    }
+    },
+    deadUrl: true
   },
   {
     id: "1778",
@@ -8948,6 +8958,7 @@ const data2: Protocol[] = [
     twitter: "GaleNetwork",
     audit_links: ["https://github.com/solidproof/projects/blob/main/Gale/SmartContract_Audit_Solidproof_GaleToken.pdf"],
     listedAt: 1653656978,
+    deadUrl: true,
   },
   {
     id: "1790",
@@ -9296,7 +9307,7 @@ const data2: Protocol[] = [
     url: "https://www.zeta.markets",
     description: "Zeta Markets is the premier derivatives protocol on Solana.",
     chain: "Solana",
-    logo: `${baseIconsUrl}/zeta.png`,
+    logo: `${baseIconsUrl}/zeta.jpg`,
     audits: "0",
     gecko_id: "zeta",
     cmcId: "32002",
@@ -9306,7 +9317,8 @@ const data2: Protocol[] = [
     module: "zeta/index.js",
     twitter: "ZetaMarkets",
     listedAt: 1654452112,
-    github: ["zetamarkets"],
+    deprecated: true,
+    parentProtocol: "parent#bullet",
     dimensions: {
       derivatives: "zeta"
     }
@@ -9858,7 +9870,6 @@ const data2: Protocol[] = [
     audit_links: ["https://gfx.cafe/ip/contracts/-/blob/master/audit/GFX_IP_Protocol_Audit_Report.pdf"],
     listedAt: 1655545050,
     stablecoins: ["interest-protocol"],
-    github: ["interest-protocol"],
   },
   {
     id: "1830",
@@ -9884,6 +9895,7 @@ const data2: Protocol[] = [
     ],
     listedAt: 1655545050,
     github: ["ZeroSwapLabs"],
+    deadUrl: true,
   },
   {
     id: "1831",
@@ -10421,6 +10433,7 @@ const data2: Protocol[] = [
     twitter: "klapfinance",
     audit_links: ["https://docs.klap.finance/useful-info/audit"],
     listedAt: 1656139895,
+    deadUrl: true,
   },
   {
     id: "1856",
@@ -10873,6 +10886,7 @@ const data2: Protocol[] = [
       "https://github.com/VeRocket/uni-v2/blob/53a2856fa58ea2021edab9a7b968a7626a28f41a/PeckShield-Audit-Report-VeRocket-v1.0.pdf",
     ],
     listedAt: 1656882929,
+    deadUrl: true,
   },
   {
     id: "1877",
@@ -12747,6 +12761,7 @@ const data2: Protocol[] = [
     audit_links: ["https://github.com/SiO2-Finance/contracts/tree/main/audits"],
     listedAt: 1660050871,
     github: ["SiO2-Finance"],
+    deadUrl: true,
   },
   {
     id: "1963",
@@ -13500,15 +13515,15 @@ const data2: Protocol[] = [
   },
   {
     id: "1997",
-    name: "Morpho V0 CompoundV2",
-    previousNames: ["Morpho Compound"],
+    name: "Morpho Optimizer CompoundV2",
+    previousNames: ["Morpho Compound", "Morpho V0 CompoundV2"],
     address: "0x58D97B57BB95320F9a05dC918Aef65434969c2B2",
     symbol: "MORPHO",
     url: "https://compound.morpho.org/?network=mainnet",
     description:
       "Morpho Compound is an on-chain peer-to-peer layer on top of lending pools. Rates are seamlessly improved for borrowers and lenders while preserving the same guarantees.",
     chain: "Ethereum",
-    logo: `${baseIconsUrl}/morpho-v0-compoundv2.png`,
+    logo: `${baseIconsUrl}/morpho-optimizer-compoundv2.png`,
     audits: "2",
     gecko_id: null,
     cmcId: null,
@@ -15445,6 +15460,7 @@ const data2: Protocol[] = [
     audit_links: ["https://symphonyfi.gitbook.io/docs/audit"],
     listedAt: 1662981929,
     github: ["symphony-finance"],
+    deadUrl: true
   },
   {
     id: "2083",
@@ -15962,7 +15978,7 @@ const data2: Protocol[] = [
     name: "DefiCurrent",
     address: null,
     symbol: "-",
-    url: "https://deficurrent.com/",
+    url: "https://deficurrent.com/",//deadUrl
     description:
       "DefiCurrent aims to offer diversified barebones yield optimization to crypto native investors through pooled investment vehicles that distribute the cost of operating yield generation strategies (rebalancing, compounding, swapping, etc.) between the participants, resulting in higher yields and less management than an individual investment",
     chain: "Ethereum",
@@ -15978,6 +15994,7 @@ const data2: Protocol[] = [
     twitter: "deficurrent",
     audit_links: ["https://www.certik.com/projects/lakefront-finance"],
     listedAt: 1663708941,
+    deadUrl: true,
   },
   {
     id: "2106",
@@ -16123,6 +16140,7 @@ const data2: Protocol[] = [
     twitter: "stake_ly",
     audit_links: ["https://github.com/stakely-protocol/audit/blob/main/report.pdf"],
     listedAt: 1663855846,
+    deadUrl: true,
   },
   {
     id: "2113",
@@ -17376,15 +17394,15 @@ const data2: Protocol[] = [
   },
   {
     id: "2168",
-    name: "Morpho V0 AaveV2",
-    previousNames: ["Morpho Aave"],
+    name: "Morpho Optimizer AaveV2",
+    previousNames: ["Morpho Aave", "Morpho V0 AaveV2"],
     address: "0x58D97B57BB95320F9a05dC918Aef65434969c2B2",
     symbol: "MORPHO",
     url: "https://aavev2.morpho.org/?network=mainnet",
     description:
       "Morpho AaveV2 is an on-chain peer-to-peer layer on top of lending pools. Rates are seamlessly improved for borrowers and lenders while preserving the same guarantees.",
     chain: "Ethereum",
-    logo: `${baseIconsUrl}/morpho-v0-aavev2.png`,
+    logo: `${baseIconsUrl}/morpho-optimizer-aavev2.png`,
     audits: "2",
     gecko_id: null,
     cmcId: null,
@@ -17524,8 +17542,8 @@ const data2: Protocol[] = [
   {
     id: "2174",
     name: "DexFinance BSC",
-    address: "bsc:0xf4914E6D97a75f014AcFcF4072f11be5CfFc4cA6",
-    symbol: "dexSHARE",
+    address: "arbitrum:0x92a212d9f5eef0b262ac7d84aea64a0d0758b94f",
+    symbol: "GDEX",
     url: "https://dexfi.com/",
     description:
       "Dex Finance is a decentralized organization providing an ecosystem of sustainable investment vehicles. Our protocols are designed to empower users by simplifying the advanced trading strategies employed by experienced investors. Core products consist of the Dex Money Market, dexIRA, dexETF and dexVAULTS+ offering multi-layered investment portfolio management with the world's most advanced yield optimizer.",
@@ -18980,8 +18998,8 @@ const data2: Protocol[] = [
   {
     id: "2235",
     name: "gALGO Liquid Governance",
-    address: null,
-    symbol: "-",
+    address: "avax:0xff7f8f301f7a706e3cfd3d2275f5dc0b9ee8009b",
+    symbol: "FOLKS",
     url: "https://folks.finance/",
     description: "Liquid Staking protocol built on Algorand Blockchain.",
     chain: "Algorand",
@@ -20890,6 +20908,7 @@ const data2: Protocol[] = [
     github: ["2pinetwork"],
     audit_links: ["https://github.com/2pinetwork/security/tree/master/audits"],
     listedAt: 1669733991,
+    deadUrl: true
   },
   {
     id: "2322",
@@ -21918,6 +21937,7 @@ const data2: Protocol[] = [
     oracles: ["Switchboard", "Pyth"],
     audit_links: ["https://github.com/AptinLabs/audit-report/blob/main/aptin_audit_report.pdf"],
     parentProtocol: "parent#aptin-finance",
+    rugged: true,
     listedAt: 1671445831,
   },
   {
@@ -23389,7 +23409,7 @@ const data2: Protocol[] = [
     twitter: "Arcade_xyz",
     audit_links: ["https://docs.arcade.xyz/docs/audit-reports"],
     listedAt: 1673781145,
-    github: ["arcadexyz", "PawnFi"],
+    github: ["arcadexyz"],
   },
   /*
   {
@@ -25690,6 +25710,7 @@ const data2: Protocol[] = [
     module: "rubydex/index.js",
     twitter: "Ruby_Dex",
     listedAt: 1676630023,
+    deadUrl: true,
   },
   {
     id: "2544",
@@ -25933,7 +25954,7 @@ const data2: Protocol[] = [
     name: "Subzero+",
     address: "avax:0xA0105D7fc6190598523f568001A71164341b0A22",
     symbol: "SUB",
-    url: "https://subzero.plus",
+    url: "https://subzero.plus",//deadUrl
     description:
       "Subzero is a decentralized venture capital investment protocol on the Avalanche network. The protocol focuses on sustainable mechanisms to encourage long-term staking and providing liquidity.",
     chain: "Avalanche",
@@ -25948,6 +25969,7 @@ const data2: Protocol[] = [
     forkedFromIds: ["376"],
     parentProtocol: "parent#subzero",
     listedAt: 1676903060,
+    deadUrl: true,
   },
   {
     id: "2556",
@@ -25971,7 +25993,8 @@ const data2: Protocol[] = [
     dimensions: {
       fees: "subzero-zswap",
       dexs: "subzero-zswap"
-    }
+    },
+    deadUrl: true,
   },
   {
     id: "2557",
@@ -27126,7 +27149,7 @@ const data2: Protocol[] = [
     name: "Hord",
     address: "0x43a96962254855f16b925556f9e97be436a43448",
     symbol: "HORD",
-    url: "https://app.hord.fi",
+    url: "https://app.hord.fi",//deadUrl
     description:
       "Hord offers a safe and easy way for users to stake their ETH by taking care of the validators and the technical operation. All you have to do is deposit any amount of ETH, and you’ll receive a receipt token called hETH which can be later redeemed for the ETH you initially staked plus your portion of the rewards earned.",
     chain: "Ethereum",
@@ -27140,6 +27163,8 @@ const data2: Protocol[] = [
     twitter: "HordApp",
     listedAt: 1677586298,
     github: ["hord"],
+    deadUrl: true,
+    deprecated: true,
   },
   {
     id: "2610",
@@ -27889,7 +27914,7 @@ const data2: Protocol[] = [
     address: "0xdef1ca1fb7fbcdc777520aa7f396b4e015f497ab",
     symbol: "COW",
     url: "https://swap.cow.fi?ref=DEFILLAMA",
-    referralUrl: "https://swap.cow.fi?ref=DEFILLAMA",
+    referralUrl: "https://swap.cow.fi?ref=DEFILLAMA",
     description:
       "CoW Swap finds the lowest prices across all exchanges and aggregators & saves you more by matching Coincidences of Wants (CoWs) and protecting from MEV",
     chain: "Ethereum",
@@ -27903,6 +27928,7 @@ const data2: Protocol[] = [
     treasury: "cowswap.js",
     twitter: "CoWSwap",
     governanceID: ["snapshot:cow.eth"],
+    deadUrl: true,
     dimensions: {
       fees: "cow-protocol",
       aggregators: {
@@ -28532,7 +28558,7 @@ const data2: Protocol[] = [
     name: "Alyx finance",
     address: "bsc:0x2701C7cBf3220FFF6e6CEaabbCD9B932Eb11E3Ff",
     symbol: "ALYX",
-    url: "https://alyx.finance/",
+    url: "https://alyx.finance/",//deadUrl
     description:
       "A DAO defi that marries real-yields with AI NFT art, and a liquidity protocol. Alyx is first and foremost a DAO that operates the $ALYX currency to grow a treasury that correspondingly backs $ALYX token as a reserve currency",
     chain: "Binance",
@@ -28547,6 +28573,7 @@ const data2: Protocol[] = [
     forkedFromIds: ["340"],
     treasury: "alyx.js",
     listedAt: 1678821724,
+    deadUrl: true,
   },
   {
     id: "2673",
@@ -28611,7 +28638,7 @@ const data2: Protocol[] = [
     module: "ramses/index.js",
     twitter: "RamsesExchange",
     forkedFromIds: ["1407"],
-    parentProtocol: "parent#ramses-exchange",
+    parentProtocol: "parent#ramses-exchange-hl",
     listedAt: 1678883899,
     dimensions: {
       fees: "ramses-exchange-v1",
@@ -28768,7 +28795,7 @@ const data2: Protocol[] = [
     name: "Davos Protocol",
     address: null,
     symbol: "-",
-    url: "https://davos.xyz/",
+    url: "https://davos.xyz/",//deadUrl
     description:
       "Davos Protocol is a pioneering DeFi platform that revolutionizes the use of collateral in the cryptocurrency space. It uniquely integrates Liquid Staking Tokens (LSTs) and Liquid ReStaking Tokens (LRTs) as collateral for its Collateralized Debt Positions (CDPs), enabling users to borrow its versatile omnichain stablecoin, DUSD. By aligning Loan-to-Value (LTV) ratios with the risk profile of each collateral type, Davos offers a balanced and secure borrowing experience. Users can capitalize on their staked assets, maintain rewards, and explore compounded yield opportunities across various DeFi activities. Emphasizing user-centric governance and innovation, Davos Protocol is at the forefront of advancing DeFi composability and sustainable yield generation",
     chain: "Polygon",
@@ -28785,6 +28812,7 @@ const data2: Protocol[] = [
     audit_links: ["https://github.com/davos-money/new-davos-smart-contracts/tree/main/audits"],
     listedAt: 1679050000,
     stablecoins: ["davos-protocol"],
+    deadUrl: true,
   },
   {
     id: "2684",

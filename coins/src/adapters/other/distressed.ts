@@ -6,6 +6,7 @@ export const contracts: { [chain: string]: { [token: string]: string } } = {
     TRU: "0xf65b5c5104c4fafd4b709d9d60a185eae063276c", // got hack on 09-01-2026
     MAGA: "0xda2e903b0b67f30bf26bd3464f9ee1a383bbbe5f",
     pETH: "0x836a808d4828586a69364065a1e064609f5078c7",
+    DOT: "0x8d010bf9C26881788b4e6bf5Fd1bdC358c8F90b8", // hyperbridge was hacked
     hBTC: "0x0316eb71485b0ab14103307bf65a021042c6d380",
     GVR: "0x84FA8f52E437Ac04107EC1768764B2b39287CB3e",
     PSY_SCAM: "0xe5a2363904d91c6a311a378537b29c7c6d4f230d",
@@ -66,6 +67,7 @@ export const contracts: { [chain: string]: { [token: string]: string } } = {
     USPD: "0x476ef9ac6d8673e220d0e8bc0a810c2dc6a2aa84", 
     yTUSD: '0x73a052500105205d34daf004eab301916da8190f',
     DGLD: "0xa9299c296d7830a99414d1e5546f5171fa01e9c8",
+    USDTC: "0x0f6b862e05a9b528b0002261f9eb616e6c4452e9"
   },
   // beam: {
   //   WMC: '0xd51bfa777609213a653a2cd067c9a0132a2d316a'
@@ -115,6 +117,7 @@ export const contracts: { [chain: string]: { [token: string]: string } } = {
     DOGECOLA: "0xe320df552e78d57e95cf1182b6960746d5016561",
     GVR: "0xaFb64E73dEf6fAa8B6Ef9a6fb7312d5C4C15ebDB",
     GVR2: "0xF33893DE6eB6aE9A67442E066aE9aBd228f5290c",
+    BRY: "0xf859Bf77cBe8699013d6Dbc7C2b926Aaf307F830",  // bad token price
     PANCAKE_LP_ABNB_BNB: "0x272c2CF847A49215A3A1D4bFf8760E503A06f880",
     BTCBR: "0x0cf8e180350253271f4b917ccfb0accc4862f262",
     RB: "0x441bb79f2da0daf457bad3d401edb68535fb3faa",
@@ -125,6 +128,7 @@ export const contracts: { [chain: string]: { [token: string]: string } } = {
     FEG: "0xacfc95585d80ab62f67a14c566c1b7a49fe91167",
     MFI: "0xeb5bb9d14d27f75c787cf7475e7ed00d21dc7279",
     BLT: "0x449aed32c1685dbeca28d1ae45462b6156a6096d",
+    PORT3: "0xb4357054c3da8d46ed642383f03139ac7f090343",
     multiBTC: "0xd9907fcda91ac644f70477b8fc1607ad15b2d7a8",
     DERC: "0x373e768f79c820aa441540d254dca6d045c6d25b",
     LMT: "0x9617857e191354dbea0b714d78bc59e57c411087",
@@ -153,6 +157,9 @@ export const contracts: { [chain: string]: { [token: string]: string } } = {
     ynCoBTCk: "0x132376b153d3cFf94615fe25712DB12CaAADf547", // SAME , backing 2 tokens and aparently also loop
     MBTC: "0x7c1cca5b25fa0bc9af9275fb53cba89dc172b878",
     NEST: "0x98f8669f6481ebb341b522fcd3663f79a3d1a6a7",
+    DOT: "0x8d010bf9c26881788b4e6bf5fd1bdc358c8f90b8", // hacked maybe, has insane supply
+    USDS: "0xde7d1ce109236b12809c45b23d22f30dba0ef424", // radioshack inflated tvl
+    USDTC: "0x96fb784986284cb6d4a8da6dd50dd7e85ef38f5d"
   },
   cronos: {
     CRK: "0x065de42e28e42d90c2052a1b49e7f83806af0e1f",
@@ -337,6 +344,8 @@ export const contracts: { [chain: string]: { [token: string]: string } } = {
   },
   base: {
     WILDx: "0xbCDa0bD6Cd83558DFb0EeC9153eD9C9cfa87782E",
+    DOT: "0x8d010bf9c26881788b4e6bf5fd1bdc358c8f90b8", // Hyperbridge was hacked
+    vDOT: "0xbc33b4d48f76d17a1800afcb730e8a6aaada7fe5", // Hyperbridge was hacked
     WANDER: "0xef0fd52e65ddcdc201e2055a94d2abff6ff10a7a",
     AETX: "0xfe0c0b15798b8c9107cd4aa556a87eb031263e8b",
     SFUND: "0x633e254585ade6e9d40d2a4b8cc2f3769b94cb48",
@@ -350,6 +359,7 @@ export const contracts: { [chain: string]: { [token: string]: string } } = {
   },
   sonic: {
     wstkscUSD: "0x896f4D49916aC5cfC36d7a260a7039ba4Ea317b6",
+    ghUSDC: "0xf6bc16b79c469b94cdd25f3e2334dd4fee47a581"
   },
   berachain: {
     "pumpBTC.bera": "0x1fCca65fb6Ae3b2758b9b2B394CB227eAE404e1E",
